@@ -82,6 +82,8 @@
     <li>검색할 document를 감독하지 않고 Retriever와 Generator를 공동으로 학습</li>
     <li>입력/출력 쌍 $(x_j, y_j)$가 주어지면 Adam을 통해 $∑_j-logp(y_j|x_j)$를 minimize</li>
     <li>query encoder와 generator를 fine-tuning하고 document encoder를 고정상태로 유지(document indexing을 정기적으로 수행하는 비용 큼)</li>
+  </ul>
+<br>
 
 <p><strong>Methods : Decoding</strong></p>
 <ul>
