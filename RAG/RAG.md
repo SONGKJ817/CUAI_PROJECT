@@ -40,13 +40,18 @@
   <li>생성된 텍스트에 대한 분포를 생성하기 위해 두 가지 모델을 제안</li>
   <ol type='1'>
     <li>RAG-Sequence : 모델은 동일한 문서를 사용하여 각 target token을 예측</li>
-    <ul>
-      <li>하나의 document $z$에 대해 sequence 안의 모든 token에 대한 확률을 계산한 뒤, top-k document에 이 과정을 모두 적용하여 더함</li>
-      <li>각각의 document를 이용하여 output sequence 전체를 대상으로 값을 산출하고, document에 대해 marginalize 함으로써 최종 값을 산출하는 model</li>
-    </ul>
+      <ul>
+        <li>하나의 document $z$에 대해 sequence 안의 모든 token에 대한 확률을 계산한 뒤, top-k document에 이 과정을 모두 적용하여 더함</li>
+        <li>각각의 document를 이용하여 output sequence 전체를 대상으로 값을 산출하고, document에 대해 marginalize 함으로써 최종 값을 산출하는 model</li>
+        <img src='https://github.com/SONGKJ817/CUAI_PROJECT/assets/154766632/58635cf9-3da1-44ab-a658-0c1284e3429b' height="70%" weight="70%">
+      </ul>
     <li>RAG-Token : 모델이 다른 문서를 기반으로 각 target token을 예측</li>
+      <ul>
+        <li>하나의 token을 생성할 때 모든 document에 대해 다룸</li>
+        <li>이후 document에 대해 marginalize</li>
+        <li>모든 token에 대해 동일한 과정을 진행함으로써 output sequence를 생성하는 model</li>
+        <img src='https://github.com/SONGKJ817/CUAI_PROJECT/assets/154766632/2cab32f4-bef8-420f-b8b5-1a74c0a6ec8e' height="70%" weight="70%">
+      </ul>
   </ol>
 </ul>
-<img src='https://github.com/SONGKJ817/CUAI_PROJECT/assets/154766632/58635cf9-3da1-44ab-a658-0c1284e3429b' height="70%" weight="70%">
-<img src='https://github.com/SONGKJ817/CUAI_PROJECT/assets/154766632/2cab32f4-bef8-420f-b8b5-1a74c0a6ec8e' height="70%" weight="70%">
 
