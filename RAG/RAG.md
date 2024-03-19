@@ -55,3 +55,10 @@
   </ol>
 </ul>
 <p><strong>Methods : DPR</strong></p>
+<ul>
+  <img src='https://github.com/SONGKJ817/CUAI_PROJECT/assets/154766632/cc1837c7-ca76-4d11-b14b-4743bfab52c4' height="60%" weight="60%">
+  <li>검색 구성요소 $p_η(z|x)$은 DPR을 기준으로 하고, DPR은 bi-encoder architecture를 따름</li>
+  <li>$d(z)$는 BERT BASE transformer에 의해 생성된 document의 dense representation</li>
+  <li>$q(x)$는 다른 매개변수를 가진 BERT BASE transformer에 의해 생성된 query representation</li>
+  <li>가장 높은 $p_η(z|x)$를 갖는 z를 효율적으로 계산하기 위해 MIPS(Maximum Inner Product Search) index를 활용함</li>
+</ul>
