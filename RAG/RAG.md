@@ -2,6 +2,7 @@
 <h3>LLM에서 응답 생성 전 학습 데이터 소스 외부의 지식 베이스를 참조하도록 하는 프로세스</h3>
 <p>LLM을 리디렉션하여 신뢰할 수 있는 사전 결정된 지식 출처에서 관련 정보를 검색</p>
 <br>
+
 <p><strong>RAG 기술의 이점</strong></p>
 <ul>
   <li>파운데이션 모델(FM)을 사용하며 이를 재교육할 필요 없음</li>
@@ -10,6 +11,7 @@
   <li>개발자가 정보 소스를 제어하고 변경하여 민감한 정보를 제한하고 모델이 적절한 응답을 생성하도록 할 수 있음</li>
 </ul>
 <br>
+
 <p><strong>RAG의 작동 원리</strong></p>
 <ol type='1'>
   <li>외부 데이터를 가져와 벡터 데이터베이스에 저장</li>
@@ -20,12 +22,14 @@
 <img src='https://github.com/SONGKJ817/CUAI_PROJECT/assets/154766632/14bf8150-702f-4ed7-a84a-26725e2f6496' height="70%" weight="70%">
 <br>
 <br>
+
 <p><h3>[논문 리뷰]Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</h3></p>
 <p><strong>Introduction</strong></p>
 <ul>
   <li>기존의 Pre-trained language model은 메모리를 쉽게 확장하거나 수정 불가능</li>
   <li>RAG : general-purpose fine-tuning approach + non-parametric memory = pre-trained parametric memory generation model</li>
 </ul>
+<br>
 <p><strong>Methods : Models</strong></p>
 <ul>
   <li>Input sequence x를 사용하여 text passage z를 검색하고 target sequence y를 생성함</li>
@@ -54,6 +58,8 @@
       </ul>
   </ol>
 </ul>
+<br>
+
 <p><strong>Methods : DPR</strong></p>
 <ul>
   <img src='https://github.com/SONGKJ817/CUAI_PROJECT/assets/154766632/cc1837c7-ca76-4d11-b14b-4743bfab52c4' height="60%" weight="60%">
@@ -61,4 +67,43 @@
   <li>$d(z)$는 BERT BASE transformer에 의해 생성된 document의 dense representation</li>
   <li>$q(x)$는 다른 매개변수를 가진 BERT BASE transformer에 의해 생성된 query representation</li>
   <li>가장 높은 $p_η(z|x)$를 갖는 z를 효율적으로 계산하기 위해 MIPS(Maximum Inner Product Search) index를 활용함</li>
+</ul>
+<br>
+
+<p><strong>Methods : Generator : BART</strong></p>
+<ul>
+  <li>Generator 구성요소 $p_θ(y_i|x, z, y_{1:i-1})$는 BART의 encoder, decoder을 사용하여 모델링(400M parameter을 가진 BART-LARGE 사용)</li>
+  <li>input $x$와 검색된 컨텐츠 $z$를 결합하기 위해 간단하게 concatenation함</li>
+</ul>
+<br>
+
+<p><strong>Methods : Training</strong></p>
+  <ul>
+    <li>검색할 document를 감독하지 않고 Retriever와 Generator를 공동으로 학습</li>
+    <li>입력/출력 쌍 $(x_j, y_j)$가 주어지면 Adam을 통해 $∑_j-logp(y_j|x_j)$를 minimize</li>
+    <li>query encoder와 generator를 fine-tuning하고 document encoder를 고정상태로 유지(document indexing을 정기적으로 수행하는 비용 큼)</li>
+
+<p><strong>Methods : Decoding</strong></p>
+<ul>
+  <li>Test 및 decoding 과정에서 RAG-sequence와 RAG-token은 $argmax_y p(y|x)$를 근사하는 다른 방법을 필요로 함</li>
+  <li>RAG-Token</li>
+    <ul>
+      <li>Transition probability를 가진 auto-regressive seq2seq generator로 볼 수 있음</li>
+        <ul>
+          <li>Transition probability : state s에서 policy에 의해 action a까지 한 뒤 그 결과로 state s'로 변할 확률</li>
+        </ul>
+      <img src='https://github.com/SONGKJ817/CUAI_PROJECT/assets/154766632/360c82c5-82a2-469c-aaa6-9801958ccfee' height="60%" weight="60%">
+      <li>Decoding 단계에서 $p'_θ(y_i|x, y_{1:i-1})$를 standard beam decoder를 사용하여 구할 수 있음</li>
+        <ul>
+          <li>Beam search : 각 step에서 탐색의 영역을 k개의 가장 likelihood가 높은 token들로 유지(<->Greedy Search)</li>
+        </ul>
+    </ul>
+  <li>RAG-Sequence</li>
+    <ul>
+      <li>각 candidate document z에 대해 beam search를 사용하여 $p_θ(y_i|x, z, y_{1:i-1})$에 대해 각각 hypothesis를 scoring</li>
+      <ul>
+        <li>"Thorough Decoding"</li>
+        <li>"Fast Decoding"</li>
+      </ul>
+    </ul>
 </ul>
