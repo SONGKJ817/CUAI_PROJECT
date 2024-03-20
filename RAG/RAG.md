@@ -41,7 +41,7 @@
 </ul>
 <img src='https://github.com/SONGKJ817/CUAI_PROJECT/assets/154766632/de23fec5-56dc-4887-bebc-eabc7693d7fd'>
 <ul>
-  <li>생성된 텍스트에 대한 분포를 생성하기 위해 두 가지 모델을 제안</li>
+  <li>두 가지 모델을 제안</li>
   <ol type='1'>
     <li>RAG-Sequence : 모델은 동일한 문서를 사용하여 각 target token을 예측</li>
       <ul>
