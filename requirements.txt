@@ -4,4 +4,5 @@ streamlit-chat
 langchain==0.2.6
 tiktoken
 rank_bm25
--U langchain-community
+faiss-cpu
+langchain-community
