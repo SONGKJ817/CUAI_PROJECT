@@ -36,7 +36,7 @@ texts = text_splitter.split_documents(data)
 store = LocalFileStore("./cachce/")
 
 # create an embedder
-core_embeddings_model = OpenAIEmbeddings()
+core_embeddings_model = OpenAIEmbeddings(api_key = OPENAI_API_KEY)
 
 embedder = CacheBackedEmbeddings.from_bytes_store(
     core_embeddings_model,
