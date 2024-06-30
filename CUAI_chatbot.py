@@ -18,8 +18,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-openai.api_key = OPENAI_API_KEY
+os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
 # load data
 loader = TextLoader(file_path='./data/all_data.txt', encoding = "UTF-8")
@@ -36,7 +35,7 @@ texts = text_splitter.split_documents(data)
 store = LocalFileStore("./cachce/")
 
 # create an embedder
-core_embeddings_model = OpenAIEmbeddings(api_key = OPENAI_API_KEY)
+core_embeddings_model = OpenAIEmbeddings()
 
 embedder = CacheBackedEmbeddings.from_bytes_store(
     core_embeddings_model,
