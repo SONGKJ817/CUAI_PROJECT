@@ -13,11 +13,16 @@ from langchain_community.document_loaders import TextLoader
 from langchain_community.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
 from langchain.callbacks import StdOutCallbackHandler
+from ".env" import load_dotenv
+
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 import os
-os.environ['OPENAI_API_KEY'] = 'sk-proj-pkJIhc0fM3iuKGlCvvxAT3BlbkFJABN9ZkEh9WrIVZw0oXBH'
+os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
-openai.api_key = 'sk-proj-pkJIhc0fM3iuKGlCvvxAT3BlbkFJABN9ZkEh9WrIVZw0oXBH'
+openai.api_key = OPENAI_API_KEY
 
 # load data
 loader = TextLoader(file_path='./data/all_data.txt', encoding = "UTF-8")
