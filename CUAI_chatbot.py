@@ -13,7 +13,7 @@ from langchain_community.document_loaders import TextLoader
 from langchain_community.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
 from langchain.callbacks import StdOutCallbackHandler
-from ".env" import load_dotenv
+from dotenv import load_dotenv
 
 load_dotenv()
 
