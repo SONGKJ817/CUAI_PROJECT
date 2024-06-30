@@ -6,3 +6,4 @@ tiktoken
 rank_bm25
 faiss-cpu
 langchain-community
+python-dotenv
