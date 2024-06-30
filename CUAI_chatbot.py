@@ -19,9 +19,6 @@ load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-import os
-os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
-
 openai.api_key = OPENAI_API_KEY
 
 # load data
